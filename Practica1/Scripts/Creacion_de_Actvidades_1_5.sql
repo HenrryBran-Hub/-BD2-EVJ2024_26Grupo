@@ -23,11 +23,11 @@ SELECT * FROM clinica.log_habitacion;
 SELECT COUNT(*) AS TOTAL_LOG_HABITACION FROM clinica.log_habitacion;
 
 -- Full Backup
-mysqldump -u practica -p1234.abcd CLINICA > C:\BackupPractica1\Actividad1_fullbackup.sql
+mysqldump -u root -p123abc CLINICA > C:\BackupPractica1\Actividad1_fullbackup.sql
 
 -- Incremental Backup
+mysqldump -u root -p123abc CLINICA HABITACION >  C:\BackupPractica1\Actividad1\incremental_backup_habitacion.sql
 
-mysqldump -u practica -p1234.abcd CLINICA HABITACION >  C:\BackupPractica1\Actividad1\incremental_backup_habitacion.sql
 
 -- -----------------------------------------------------
 -- ACTIVIDAD 2
@@ -54,7 +54,6 @@ SELECT COUNT(*) AS TOTAL_LOG_HABITACION FROM clinica.log_habitacion;
 mysqldump -u root -p123abc CLINICA > C:\BackupPractica1\Actividad2_fullbackup.sql
 
 -- Incremental Backup
-
 mysqldump -u root -p123abc CLINICA PACIENTE >  C:\BackupPractica1\Actividad2_incremental_backup_paciente.sql
 
 
@@ -88,8 +87,8 @@ SELECT COUNT(*) AS TOTAL_LOG_HABITACION FROM clinica.log_habitacion;
 mysqldump -u root -p123abc CLINICA > C:\BackupPractica1\Actividad3_fullbackup.sql
 
 -- Incremental Backup
-
 mysqldump -u root -p123abc CLINICA LOG_ACTIVIDAD >  C:\BackupPractica1\Actividad3_incremental_backup_log_activadad_1.sql
+
 
 -- -----------------------------------------------------
 -- ACTIVIDAD 4
@@ -117,12 +116,12 @@ SELECT COUNT(*) AS TOTAL_LOG_ACTIVIDAD FROM clinica.log_actividad;
 SELECT * FROM clinica.log_habitacion;
 SELECT COUNT(*) AS TOTAL_LOG_HABITACION FROM clinica.log_habitacion;
 
-
 -- Full Backup
 mysqldump -u root -p123abc CLINICA > C:\BackupPractica1\Actividad4_fullbackup.sql
 
 -- Incremental Backup
 mysqldump -u root -p123abc CLINICA LOG_ACTIVIDAD --no-create-info --where="id_log_actividad > 33845" > C:\BackupPractica1\Actividad4_incremental_backup_log_actividad_2.sql
+
 
 -- -----------------------------------------------------
 -- ACTIVIDAD 5
@@ -153,5 +152,4 @@ SELECT COUNT(*) AS TOTAL_LOG_HABITACION FROM clinica.log_habitacion;
 mysqldump -u root -p123abc CLINICA > C:\BackupPractica1\Actividad5_fullbackup.sql
 
 -- Incremental Backup
-
 mysqldump -u root -p123abc CLINICA LOG_HABITACION >  C:\BackupPractica1\Actividad5_incremental_backup_log_habitacion.sql
