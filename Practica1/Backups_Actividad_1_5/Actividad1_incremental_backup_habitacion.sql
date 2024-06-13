@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `habitacion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `habitacion` (
   `idHabitacion` int NOT NULL,
-  `habitacion` varchar(50) NOT NULL,
+  `habitacion` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idHabitacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `habitacion` (
 
 LOCK TABLES `habitacion` WRITE;
 /*!40000 ALTER TABLE `habitacion` DISABLE KEYS */;
-INSERT INTO `habitacion` VALUES (1,'Sala de examenes 1'),(2,'Sala de examenes 2'),(3,'Sala de examenes 3'),(4,'Sala de examenes 4'),(5,'Sala de imagenes 1'),(6,'Sala de procedimientos 1'),(7,'Sala de procedimientos 2'),(8,'Sala de procedimientos 3'),(9,'Sala de procedimientos 4'),(10,'Recepcion'),(11,'Laboratorio'),(12,'EstaciÃ³n de revisiÃ³n 1'),(13,'EstaciÃ³n de revisiÃ³n 2'),(14,'EstaciÃ³n de revisiÃ³n 3'),(15,'EstaciÃ³n de revisiÃ³n 4');
+INSERT INTO `habitacion` VALUES (1,'Sala de examenes 1\r'),(2,'Sala de examenes 2\r'),(3,'Sala de examenes 3\r'),(4,'Sala de examenes 4\r'),(5,'Sala de imagenes 1\r'),(6,'Sala de procedimientos 1\r'),(7,'Sala de procedimientos 2\r'),(8,'Sala de procedimientos 3\r'),(9,'Sala de procedimientos 4\r'),(10,'Recepcion\r'),(11,'Laboratorio\r'),(12,'Estación de revisión 1\r'),(13,'Estación de revisión 2\r'),(14,'Estación de revisión 3\r'),(15,'Estación de revisión 4\r');
 /*!40000 ALTER TABLE `habitacion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-11 19:50:19
+-- Dump completed on 2024-06-12 16:46:08
