@@ -39,7 +39,7 @@ BEGIN
 			VALUES(@rolIdTutor, @idUser, 1)
 
 			INSERT INTO proyecto1.TutorProfile(UserId, TutorCode)
-			VALUES(@idUser, 'PRUEBA')
+			VALUES(@idUser, NEWID())
 
 			INSERT INTO proyecto1.CourseTutor(TutorId, CourseCodCourse)
 			VALUES(@idUser, @CodCourse)
