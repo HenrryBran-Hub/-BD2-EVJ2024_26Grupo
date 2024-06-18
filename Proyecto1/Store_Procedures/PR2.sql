@@ -36,7 +36,7 @@ BEGIN
 			END
 
 			INSERT INTO proyecto1.UsuarioRole(RoleId, UserId, IsLatestVersion)
-			VALUES(@rolIdTutor, @idUser)
+			VALUES(@rolIdTutor, @idUser, 1)
 
 			INSERT INTO proyecto1.TutorProfile(UserId, TutorCode)
 			VALUES(@idUser, 'PRUEBA')
@@ -50,7 +50,7 @@ BEGIN
 			INSERT INTO proyecto1.HistoryLog(Date, Description)
 			VALUES(GETDATE(), 'OK - CambioRoles')
 
-			COMMIT TRAN RegistrarUsuarios
+			COMMIT TRAN CambioRoles
 
 	END TRY
 	BEGIN CATCH
