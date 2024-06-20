@@ -27,13 +27,7 @@ BEGIN
     -- Validacion de Curso
     ELSE IF @EntityName = 'Course'
     BEGIN
-		IF (
-			PATINDEX('%[^a-zA-Z 0-9]%', @Name) = 0
-			AND (
-				PATINDEX('% [0-9]', @Name) > 0
-				OR PATINDEX('%[0-9]%', @Name) = 0
-			)
-		) AND ISNUMERIC(@CreditsRequired) = 1
+		IF (PATINDEX('%[^a-zA-Z 0-9]%', @Name) = 0 AND (PATINDEX('% [0-9]', @Name) > 0 OR PATINDEX('%[0-9]%', @Name) = 0)) AND ISNUMERIC(@CreditsRequired) = 1
 		BEGIN
             SET @IsValid = 1
 		END
