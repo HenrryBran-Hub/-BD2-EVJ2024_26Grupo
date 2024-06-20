@@ -1,4 +1,11 @@
 ﻿
+-------------------------------------------------------------------------
+-- Laboratorio Sistemas de Bases 2
+-- Escuela de Vacaciones Primer Semestre 2024
+-- Grupo 26
+-- Store Procedure para Validación de Datos
+-------------------------------------------------------------------------
+
 CREATE OR ALTER PROCEDURE proyecto1.PR6
 (
 	@EntityName NVARCHAR(50)
@@ -10,7 +17,7 @@ CREATE OR ALTER PROCEDURE proyecto1.PR6
 )
 AS
 BEGIN
-	IF @EntityName = 'Usuarios'
+	IF @EntityName = 'Users'
     BEGIN
         IF ISNULL(@FirstName, '') NOT LIKE '%[^a-zA-Z ]%' AND ISNULL(@LastName, '') NOT LIKE '%[^a-zA-Z ]%'
             SET @IsValid = 1;
@@ -20,7 +27,13 @@ BEGIN
     -- Validacion de Curso
     ELSE IF @EntityName = 'Course'
     BEGIN
-        IF (ISNULL(@Name, '') NOT LIKE '%[^a-zA-Z0-9 ]%' AND (@Name NOT LIKE '%[0-9]%' OR @Name LIKE '%[0-9]')) AND ISNUMERIC(@CreditsRequired) = 1
+		IF (
+			PATINDEX('%[^a-zA-Z 0-9]%', @Name) = 0
+			AND (
+				PATINDEX('% [0-9]', @Name) > 0
+				OR PATINDEX('%[0-9]%', @Name) = 0
+			)
+		) AND ISNUMERIC(@CreditsRequired) = 1
 		BEGIN
             SET @IsValid = 1
 		END

@@ -1,4 +1,11 @@
 ﻿
+-------------------------------------------------------------------------
+-- Laboratorio Sistemas de Bases 2
+-- Escuela de Vacaciones Primer Semestre 2024
+-- Grupo 26
+-- Store Procedure para Asignación de Cursos
+-------------------------------------------------------------------------
+
 CREATE OR ALTER PROCEDURE proyecto1.PR3
 (
 	@Email NVARCHAR(MAX)
@@ -31,6 +38,17 @@ BEGIN
 			BEGIN
 				ROLLBACK TRAN AsignacionCursos
 				SET @descriptionMessage = CONCAT('ERROR - AsignacionCursos - No existe un curso con el código ', @CodCourse)
+
+				INSERT INTO proyecto1.HistoryLog(Date, Description)
+				VALUES(GETDATE(), @descriptionMessage)
+
+				RETURN 0
+			END
+
+			IF @CodCourse < 0 OR @CodCourse IS NULL
+			BEGIN
+				ROLLBACK TRAN AsignacionCursos
+				SET @descriptionMessage = 'ERROR - AsignacionCursos - El código del curso no puede ser negativo ni estar vacío'
 
 				INSERT INTO proyecto1.HistoryLog(Date, Description)
 				VALUES(GETDATE(), @descriptionMessage)

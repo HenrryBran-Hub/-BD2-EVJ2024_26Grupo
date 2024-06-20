@@ -1,4 +1,11 @@
 ﻿
+-------------------------------------------------------------------------
+-- Laboratorio Sistemas de Bases 2
+-- Escuela de Vacaciones Primer Semestre 2024
+-- Grupo 26
+-- Store Procedure para Cambio de Rol a Tutor
+-------------------------------------------------------------------------
+
 CREATE OR ALTER PROCEDURE proyecto1.PR2
 (
 	@Email NVARCHAR(MAX)
@@ -6,6 +13,8 @@ CREATE OR ALTER PROCEDURE proyecto1.PR2
 )
 AS
 BEGIN
+	DECLARE @descriptionMessage VARCHAR(MAX)
+
 	BEGIN TRY
 		BEGIN TRAN CambioRoles
 			DECLARE @idUser UNIQUEIDENTIFIER
@@ -13,8 +22,22 @@ BEGIN
 
 			IF NOT EXISTS (SELECT 1 FROM proyecto1.Usuarios WHERE Email = @Email)
 			BEGIN
+				ROLLBACK TRAN CambioRoles
+				SET @descriptionMessage = CONCAT('ERROR - CambioRoles - No existe un usuario con el email ', @Email)
+
 				INSERT INTO proyecto1.HistoryLog(Date, Description)
-				VALUES(GETDATE(), 'ERROR - CambioRoles - No existe un usuario con el email enviado')
+				VALUES(GETDATE(), @descriptionMessage)
+
+				RETURN 0
+			END
+
+			IF @CodCourse < 0 OR @CodCourse IS NULL
+			BEGIN
+				ROLLBACK TRAN CambioRoles
+				SET @descriptionMessage = 'ERROR - CambioRoles - El código del curso no puede ser negativo ni estar vacío'
+
+				INSERT INTO proyecto1.HistoryLog(Date, Description)
+				VALUES(GETDATE(), @descriptionMessage)
 
 				RETURN 0
 			END
@@ -29,8 +52,22 @@ BEGIN
 
 			IF @rolIdTutor IS NULL
 			BEGIN
+				ROLLBACK TRAN CambioRoles
+				SET @descriptionMessage = 'ERROR - CambioRoles - No existe un rol de usuario Tutor'
+
 				INSERT INTO proyecto1.HistoryLog(Date, Description)
-				VALUES(GETDATE(), 'ERROR - CambioRoles - No existe un rol de usuario Tutor')
+				VALUES(GETDATE(), @descriptionMessage)
+
+				RETURN 0
+			END
+
+			IF EXISTS (SELECT 1 FROM proyecto1.CourseTutor WHERE TutorId = @idUser AND CourseCodCourse = @CodCourse)
+			BEGIN
+				ROLLBACK TRAN CambioRoles
+				SET @descriptionMessage = CONCAT('ERROR - CambioRoles - Ya existe una asignación del usuario ', @Email, ' al curso ', @CodCourse)
+
+				INSERT INTO proyecto1.HistoryLog(Date, Description)
+				VALUES(GETDATE(), @descriptionMessage)
 
 				RETURN 0
 			END
