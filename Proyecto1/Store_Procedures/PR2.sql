@@ -19,6 +19,7 @@ BEGIN
 		BEGIN TRAN CambioRoles
 			DECLARE @idUser UNIQUEIDENTIFIER
 					,@rolIdTutor UNIQUEIDENTIFIER
+					,@isConfirmed BIT
 
 			IF NOT EXISTS (SELECT 1 FROM proyecto1.Usuarios WHERE Email = @Email)
 			BEGIN
@@ -43,6 +44,7 @@ BEGIN
 			END
 
 			SELECT @idUser = Id
+				  ,@isConfirmed = EmailConfirmed
 			FROM proyecto1.Usuarios
 			WHERE Email = @Email
 
@@ -65,6 +67,17 @@ BEGIN
 			BEGIN
 				ROLLBACK TRAN CambioRoles
 				SET @descriptionMessage = CONCAT('ERROR - CambioRoles - Ya existe una asignación del usuario ', @Email, ' al curso ', @CodCourse)
+
+				INSERT INTO proyecto1.HistoryLog(Date, Description)
+				VALUES(GETDATE(), @descriptionMessage)
+
+				RETURN 0
+			END
+
+			IF @isConfirmed = 0
+			BEGIN
+				ROLLBACK TRAN CambioRoles
+				SET @descriptionMessage = CONCAT('ERROR - CambioRoles - El usuario con email ', @Email, ' no cuenta con un usuario activo')
 
 				INSERT INTO proyecto1.HistoryLog(Date, Description)
 				VALUES(GETDATE(), @descriptionMessage)

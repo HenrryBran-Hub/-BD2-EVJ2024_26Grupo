@@ -94,6 +94,17 @@ BEGIN
 				RETURN 0
 			END
 
+			IF @idTutor IS NULL
+			BEGIN
+				ROLLBACK TRAN AsignacionCursos
+				SET @descriptionMessage = CONCAT('ERROR - AsignacionCursos - No existe tutor para impartir el curso con código ', @CodCourse)
+
+				INSERT INTO proyecto1.HistoryLog(Date, Description)
+				VALUES(GETDATE(), @descriptionMessage)
+
+				RETURN 0
+			END
+
 			INSERT INTO proyecto1.CourseAssignment(StudentId, CourseCodCourse)
 			VALUES(@idUser, @CodCourse)
 
