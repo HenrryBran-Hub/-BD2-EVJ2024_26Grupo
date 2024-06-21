@@ -7,18 +7,16 @@
 USE BD2;
 GO
 
-CREATE FUNCTION proyecto1.F5(@UserId UNIQUEIDENTIFIER)
+CREATE OR ALTER FUNCTION proyecto1.F5(@UserId UNIQUEIDENTIFIER)
 RETURNS TABLE
 AS
 RETURN
 (
-    SELECT DISTINCT u.Firstname, u.Lastname, u.Email, u.DateOfBirth, ps.Credits, r.RoleName, ct.CourseCodCourse
-    FROM CourseAssignment ca
-    JOIN Usuarios u ON ca.StudentId = u.Id
+    SELECT u.Firstname, u.Lastname, u.Email, u.DateOfBirth, ps.Credits, r.RoleName
+    FROM Usuarios u    
     JOIN ProfileStudent ps ON u.Id = ps.UserId
     JOIN UsuarioRole ur ON u.Id = ur.UserId
     JOIN Roles r ON ur.RoleId = r.Id
-	JOIN CourseTutor ct ON ca.CourseCodCourse = ct.CourseCodCourse
     WHERE u.Id = @UserId
 );
 GO

@@ -49,6 +49,11 @@ EXECUTE proyecto1.PR3 @Email = 'laura.diaz@gmail.com', @CodCourse = 7891;
 EXECUTE proyecto1.PR3 @Email = 'ana.martinez@gmail.com', @CodCourse = 7891;
 EXECUTE proyecto1.PR3 @Email = 'elena.mendoza@gmail.com', @CodCourse = 7891;
 
+
+EXECUTE proyecto1.PR2 @Email = 'miguel.torres@gmail.com', @CodCourse = 7892;
+EXECUTE proyecto1.PR3 @Email = 'laura.diaz@gmail.com', @CodCourse = 7891;
+EXECUTE proyecto1.PR3 @Email = 'ana.martinez@gmail.com', @CodCourse = 7891;
+EXECUTE proyecto1.PR3 @Email = 'elena.mendoza@gmail.com', @CodCourse = 7891;
 -- asignacion de tutor
 
 SELECT *FROM proyecto1.Course;
